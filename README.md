@@ -27,4 +27,4 @@ Triggers a slow-motion effect, making it easier to navigate
 Activates super speed for a thrilling challenge
 
 🔗 Play the Game Now
-👉 Click here to play
+[👉 Click here to play](https://monu-shilla.itch.io/snakegame)
