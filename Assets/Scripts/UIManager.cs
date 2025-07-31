@@ -38,14 +38,14 @@ public class UIManager : MonoBehaviour
         HidePowerUpInfo();
     }
 
-    // ----------------- SCORE -----------------
+    
     public void UpdateScore(int score)
     {
         if (scoreText != null)
             scoreText.text = "Score: " + score;
     }
 
-    // ----------------- GAME OVER -----------------
+    
     public void ShowGameOver()
     {
         if (gameOverPanel != null)
@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
             gameOverPanel.SetActive(false);
     }
 
-    // ----------------- PAUSE MENU -----------------
+    
     public void ShowPauseMenu()
     {
         if (pauseMenuPanel != null)
@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
             HidePauseMenu();
     }
 
-    // ----------------- POWER-UP -----------------
+    
     public void ShowPowerUp(string name, float duration)
     {
         if (powerUpSliderCoroutine != null)
@@ -149,7 +149,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    // ----------------- BUTTON EVENTS -----------------
+    
     public void OnResumeButton()
     {
         HidePauseMenu();
@@ -159,20 +159,20 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     public void OnExitButton()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void OnHomeButton()
     {
         Time.timeScale = 1f;
-        //implementations abhi baki hai mere dost
-
+        SceneManager.LoadScene("MenuScene");
     }
 
-    
+
 
 }

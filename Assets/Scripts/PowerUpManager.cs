@@ -20,13 +20,10 @@ public class PowerUpManager : MonoBehaviour
         StartCoroutine(SpawnPowerUps());
     }
 
-    private IEnumerator SpawnPowerUps()
+    public IEnumerator SpawnPowerUps()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(20f, 30f)); // koi bhi superpower spawn ho jayegi
-            SpawnRandomPowerUp();
-        }
+       yield return new WaitForSeconds(Random.Range(5f, 15f)); // koi bhi superpower spawn ho jayegi
+       
     }
 
     void SpawnRandomPowerUp()

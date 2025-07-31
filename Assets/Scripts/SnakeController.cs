@@ -34,7 +34,7 @@ public class SnakeController : MonoBehaviour
 
         var cell = GridManager.Instance.grid[start.x, start.y];
         cell.GetComponent<Image>().enabled = true;
-        cell.transform.GetChild(0).gameObject.SetActive(true); // sanp ka fan
+        cell.transform.GetChild(0).gameObject.SetActive(true);
 
         baseInterval = interval;
         FoodSpawner.Spawn(ref foodPosition, snake);
@@ -60,10 +60,10 @@ public class SnakeController : MonoBehaviour
     {
         Vector2Int newHead = snake[0] + direction;
 
-        
         if (newHead.x < 0 || newHead.x >= 20 || newHead.y < 0 || newHead.y >= 20 || snake.Contains(newHead))
         {
             UIManager.Instance.ShowGameOver();
+            AudioManager.Instance.PlayWallHitSound();
             enabled = false;
             return;
         }
@@ -71,17 +71,15 @@ public class SnakeController : MonoBehaviour
         snake.Insert(0, newHead);
         UpdateVisuals(newHead);
 
-        
         if (newHead == foodPosition)
         {
             grow = true;
             GridManager.Instance.grid[newHead.x, newHead.y].transform.GetChild(2).gameObject.SetActive(false);
             FoodSpawner.Spawn(ref foodPosition, snake);
-
             ScoreManager.Instance.AddPoint();
+            AudioManager.Instance.PlayEatSound();
         }
 
-        
         if (powerUps.ContainsKey(newHead))
         {
             int type = powerUps[newHead];
@@ -90,7 +88,6 @@ public class SnakeController : MonoBehaviour
             powerUps.Remove(newHead);
         }
 
-        
         if (!grow)
         {
             Vector2Int tail = snake[snake.Count - 1];
@@ -155,7 +152,7 @@ public class SnakeController : MonoBehaviour
 
     private void ApplyPowerUp(int type)
     {
-        
+        PowerUpManager.Instance.StartCoroutine(PowerUpManager.Instance.SpawnPowerUps());
         if (activePowerUpCoroutine != null)
         {
             StopCoroutine(activePowerUpCoroutine);
@@ -166,19 +163,21 @@ public class SnakeController : MonoBehaviour
 
         switch (type)
         {
-            case 0: 
+            case 0:
                 interval = baseInterval / 2f;
                 UIManager.Instance.ShowPowerUp("Speed Boost", 5f);
+                AudioManager.Instance.SetHighSpeed();
                 activePowerUpCoroutine = StartCoroutine(ResetSpeedAfter(5f));
                 break;
 
-            case 1: 
+            case 1:
                 interval = baseInterval * 2f;
                 UIManager.Instance.ShowPowerUp("Slow Motion", 5f);
+                AudioManager.Instance.SetSlowMotion();
                 activePowerUpCoroutine = StartCoroutine(ResetSpeedAfter(5f));
                 break;
 
-            case 2: 
+            case 2:
                 int segmentsToTrim = Mathf.Min(5, snake.Count - 2);
 
                 for (int i = 0; i < segmentsToTrim; i++)
@@ -194,12 +193,14 @@ public class SnakeController : MonoBehaviour
                 }
 
                 UIManager.Instance.ShowPowerUp("Trim Snake", 2f);
+                AudioManager.Instance.PlayTrimSound();
                 activePowerUpCoroutine = StartCoroutine(HideTrimInfoAfter(2f));
                 break;
 
-            case 3: 
+            case 3:
                 ScoreManager.Instance.EnableDoublePoints(10f);
                 UIManager.Instance.ShowPowerUp("Double Points", 10f);
+                AudioManager.Instance.PlayDoubleScoreSound();
                 activePowerUpCoroutine = StartCoroutine(ResetDoublePointsAfter(10f));
                 break;
         }
@@ -209,24 +210,25 @@ public class SnakeController : MonoBehaviour
     {
         switch (type)
         {
-            case 0: 
-            case 1: 
+            case 0:
+            case 1:
                 interval = baseInterval;
+                AudioManager.Instance.SetNormalSpeed();
                 break;
 
-            case 3: 
-                ScoreManager.Instance.DisableDoublePoints(); 
+            case 3:
+                ScoreManager.Instance.DisableDoublePoints();
                 break;
         }
 
         UIManager.Instance.HidePowerUpInfo();
     }
 
-
     private IEnumerator ResetSpeedAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         interval = baseInterval;
+        AudioManager.Instance.SetNormalSpeed();
         UIManager.Instance.HidePowerUpInfo();
         activePowerUpCoroutine = null;
         currentPowerUp = -1;
@@ -251,11 +253,9 @@ public class SnakeController : MonoBehaviour
 
     public void OnScoreChanged(int score)
     {
-        float minInterval = 0.1f; 
-        float maxSpeedScore = 50f; 
-
-        float t = Mathf.Clamp01(score / maxSpeedScore); 
+        float minInterval = 0.1f;
+        float maxSpeedScore = 50f;
+        float t = Mathf.Clamp01(score / maxSpeedScore);
         interval = Mathf.Lerp(baseInterval, minInterval, t);
     }
-
 }
