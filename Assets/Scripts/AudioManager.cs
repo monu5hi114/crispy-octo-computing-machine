@@ -29,7 +29,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

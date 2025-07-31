@@ -152,7 +152,6 @@ public class SnakeController : MonoBehaviour
 
     private void ApplyPowerUp(int type)
     {
-        PowerUpManager.Instance.StartCoroutine(PowerUpManager.Instance.SpawnPowerUps());
         if (activePowerUpCoroutine != null)
         {
             StopCoroutine(activePowerUpCoroutine);

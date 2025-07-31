@@ -22,7 +22,11 @@ public class PowerUpManager : MonoBehaviour
 
     public IEnumerator SpawnPowerUps()
     {
-       yield return new WaitForSeconds(Random.Range(5f, 15f)); // koi bhi superpower spawn ho jayegi
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(5f, 15f)); // koi bhi superpower spawn ho jayegi
+            SpawnRandomPowerUp();
+        }
        
     }
 

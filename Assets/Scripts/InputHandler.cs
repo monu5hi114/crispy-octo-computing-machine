@@ -18,9 +18,9 @@ public static class InputHandler
     public static Vector2Int GetKeyboardDirection(Vector2Int currentDir)
     {
         if (Input.GetKeyDown(KeyCode.W) && currentDir != Vector2Int.down)
-            return Vector2Int.up;
-        if (Input.GetKeyDown(KeyCode.S) && currentDir != Vector2Int.up)
             return Vector2Int.down;
+        if (Input.GetKeyDown(KeyCode.S) && currentDir != Vector2Int.up)
+            return Vector2Int.up;
         if (Input.GetKeyDown(KeyCode.A) && currentDir != Vector2Int.right)
             return Vector2Int.left;
         if (Input.GetKeyDown(KeyCode.D) && currentDir != Vector2Int.left)
