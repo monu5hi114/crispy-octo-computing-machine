@@ -25,6 +25,6 @@ Triggers a slow-motion effect, making it easier to navigate
 ❤️ Red Ball
 
 Activates super speed for a thrilling challenge
-
+currently the layout is for mobile devices.
 🔗 Play the Game Now
 [👉 Click here to play](https://monu-shilla.itch.io/snakegame)
