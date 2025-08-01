@@ -62,8 +62,8 @@ public class UIManager : MonoBehaviour
 
             highScoreText.text = "High Score: " + high;
             gameOverPanel.SetActive(true);
-            AudioListener.pause = true;
-            PowerUpManager.Instance.enabled = false;
+            AudioManager.Instance.BGMOF();
+            PowerUpManager.Instance.gameObject.SetActive(false);
         }
     }
 
@@ -80,8 +80,8 @@ public class UIManager : MonoBehaviour
         {
             pauseMenuPanel.SetActive(true);
             Time.timeScale = 0f;
-            AudioListener.pause = true;
-            PowerUpManager.Instance.enabled = false;
+            AudioManager.Instance.BGMOF();
+            PowerUpManager.Instance.gameObject.SetActive(false);
         }
     }
 

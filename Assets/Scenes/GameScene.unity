@@ -2623,7 +2623,7 @@ MonoBehaviour:
   bgmSource: {fileID: 442404088}
   sfxSource: {fileID: 1961189399}
   eatClip: {fileID: 8300000, guid: 59631e9eaa3caae408905ea996fb46ca, type: 3}
-  wallHitClip: {fileID: 8300000, guid: e557e8020bfddbe459d19a8cca0106a5, type: 3}
+  wallHitClip: {fileID: 8300000, guid: 613ec2de2859c8446b27f326f073f2b8, type: 3}
   trimClip: {fileID: 8300000, guid: 510aed5887293f047ba6a1e6b75691f4, type: 3}
   doubleScoreClip: {fileID: 8300000, guid: c3b0261af6e4d244597bf961964372eb, type: 3}
   normalPitch: 1
